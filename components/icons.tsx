@@ -1,8 +1,8 @@
 import {
   Laptop,
   LucideProps,
-  Printer,
   Moon,
+  Printer,
   SunMedium,
   Twitter,
   type Icon as LucideIcon,

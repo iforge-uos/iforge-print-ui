@@ -12,7 +12,7 @@ export default function IndexPage() {
           3D Printing Service
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-         Go away nerds
+          Go away nerds
         </p>
       </div>
       <div className="flex gap-4">

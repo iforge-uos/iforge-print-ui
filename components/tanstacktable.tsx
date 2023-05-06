@@ -1,14 +1,14 @@
 "use client"
-import { Table, Thead, Tr, Td, Tfoot, Th, Tbody } from '@/components/ui/table'
 
+import { useState } from "react"
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table"
 
-import { useState } from 'react';
+import { Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@/components/ui/table"
 
 type Person = {
   firstName: string
@@ -21,27 +21,27 @@ type Person = {
 
 const defaultData: Person[] = [
   {
-    firstName: 'tanner',
-    lastName: 'linsley',
+    firstName: "tanner",
+    lastName: "linsley",
     age: 24,
     visits: 100,
-    status: 'In Relationship',
+    status: "In Relationship",
     progress: 50,
   },
   {
-    firstName: 'tandy',
-    lastName: 'miller',
+    firstName: "tandy",
+    lastName: "miller",
     age: 40,
     visits: 40,
-    status: 'Single',
+    status: "Single",
     progress: 80,
   },
   {
-    firstName: 'joe',
-    lastName: 'dirte',
+    firstName: "joe",
+    lastName: "dirte",
     age: 45,
     visits: 20,
-    status: 'Complicated',
+    status: "Complicated",
     progress: 10,
   },
 ]
@@ -49,67 +49,67 @@ const defaultData: Person[] = [
 const columnHelper = createColumnHelper<Person>()
 
 const columns = [
-  columnHelper.accessor('firstName', {
-    cell: info => info.getValue(),
-    footer: info => info.column.id,
+  columnHelper.accessor("firstName", {
+    cell: (info) => info.getValue(),
+    footer: (info) => info.column.id,
   }),
-  columnHelper.accessor(row => row.lastName, {
-    id: 'lastName',
-    cell: info => <i>{info.getValue()}</i>,
+  columnHelper.accessor((row) => row.lastName, {
+    id: "lastName",
+    cell: (info) => <i>{info.getValue()}</i>,
     header: () => <span>Last Name</span>,
-    footer: info => info.column.id,
+    footer: (info) => info.column.id,
   }),
-  columnHelper.accessor('age', {
-    header: () => 'Age',
-    cell: info => info.renderValue(),
-    footer: info => info.column.id,
+  columnHelper.accessor("age", {
+    header: () => "Age",
+    cell: (info) => info.renderValue(),
+    footer: (info) => info.column.id,
   }),
-  columnHelper.accessor('visits', {
+  columnHelper.accessor("visits", {
     header: () => <span>Visits</span>,
-    footer: info => info.column.id,
+    footer: (info) => info.column.id,
   }),
-  columnHelper.accessor('status', {
-    header: 'Status',
-    footer: info => info.column.id,
+  columnHelper.accessor("status", {
+    header: "Status",
+    footer: (info) => info.column.id,
   }),
-  columnHelper.accessor('progress', {
-    header: 'Profile Progress',
-    footer: info => info.column.id,
+  columnHelper.accessor("progress", {
+    header: "Profile Progress",
+    footer: (info) => info.column.id,
   }),
 ]
 
 function TanTable() {
-  const [data, setData] = useState(() => [...defaultData]);
-  const rerender = useState(() => ({}))[1];
+  const [data, setData] = useState(() => [...defaultData])
+  const rerender = useState(() => ({}))[1]
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-  });
+  })
 
   return (
     <Table>
       <Thead>
-        {table.getHeaderGroups().map(headerGroup => (
+        {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
+            {headerGroup.headers.map((header) => (
               <Th key={header.id}>
                 {header.isPlaceholder
                   ? null
                   : flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
               </Th>
             ))}
           </Tr>
         ))}
       </Thead>
       <Tbody>
-        {table.getRowModel().rows.map(row => (
+        {table.getRowModel().rows.map((row) => (
           <Tr key={row.id}>
-            {row.getVisibleCells().map(cell => (
+            {row.getVisibleCells().map((cell) => (
               <Td key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Td>
@@ -118,23 +118,23 @@ function TanTable() {
         ))}
       </Tbody>
       <Tfoot>
-        {table.getFooterGroups().map(footerGroup => (
+        {table.getFooterGroups().map((footerGroup) => (
           <Tr key={footerGroup.id}>
-            {footerGroup.headers.map(header => (
+            {footerGroup.headers.map((header) => (
               <Th key={header.id}>
                 {header.isPlaceholder
                   ? null
                   : flexRender(
-                    header.column.columnDef.footer,
-                    header.getContext()
-                  )}
+                      header.column.columnDef.footer,
+                      header.getContext()
+                    )}
               </Th>
             ))}
           </Tr>
         ))}
       </Tfoot>
     </Table>
-  );
+  )
 }
 
 export default TanTable
