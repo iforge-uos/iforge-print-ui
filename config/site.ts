@@ -27,7 +27,7 @@ export const siteConfig = {
     {
       title: "Admin",
       href: "/admin",
-    }
+    },
   ],
   links: {
     twitter: "https://twitter.com/iforgeuos",
