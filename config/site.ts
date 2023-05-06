@@ -12,6 +12,22 @@ export const siteConfig = {
       title: "Printers",
       href: "/printers",
     },
+    {
+      title: "Prints",
+      href: "/printjobs",
+    },
+    {
+      title: "Users",
+      href: "/users",
+    },
+    {
+      title: "Profile",
+      href: "/profile",
+    },
+    {
+      title: "Admin",
+      href: "/admin",
+    }
   ],
   links: {
     twitter: "https://twitter.com/iforgeuos",
