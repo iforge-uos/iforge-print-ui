@@ -25,7 +25,7 @@ export default function IndexPage() {
         console.log(data)
       }
     )
-    console.log(siteConfig.eastereggs.message)
+    console.log(siteConfig.easterEggs.message)
   }
 
   return (
