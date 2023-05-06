@@ -35,4 +35,7 @@ export const siteConfig = {
     main_site: "https://iforgesheffield.org",
     internal_site: "https://iforge.sheffield.ac.uk",
   },
+  eastereggs: {
+    message: "Check back later for more info!",
+  }
 }
