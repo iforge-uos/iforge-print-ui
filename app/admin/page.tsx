@@ -17,7 +17,6 @@ import { Overview } from "@/components/admin/overview"
 import { RecentSales } from "@/components/admin/recent-sales"
 import { Search } from "@/components/admin/search"
 import TeamSwitcher from "@/components/admin/team-switcher"
-import { UserNav } from "@/components/admin/user-nav"
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -50,7 +49,6 @@ export default function AdminPage() {
             <MainNav className="mx-6" />
             <div className="ml-auto flex items-center space-x-4">
               <Search />
-              <UserNav />
             </div>
           </div>
         </div>

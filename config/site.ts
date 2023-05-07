@@ -37,5 +37,5 @@ export const siteConfig = {
   },
   easterEggs: {
     message: "Check back later for more info!",
-  }
+  },
 }

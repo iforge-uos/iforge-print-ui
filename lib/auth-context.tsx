@@ -1,0 +1,112 @@
+"use client"
+
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
+import axios from "axios"
+import { useCookies } from "react-cookie"
+
+interface AuthState {
+  isLoggedIn: boolean
+  user: any
+}
+
+interface AuthContextType extends AuthState {
+  login: (username: string, password: string) => Promise<string | null>
+  logout: () => void
+}
+
+const AuthContext = createContext<AuthContextType>({
+  isLoggedIn: false,
+  user: null,
+  login: async () => Promise.resolve(null),
+  logout: () => {},
+})
+
+interface AuthProviderProps {
+  children: ReactNode
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "access_token",
+    "refresh_token",
+    "user",
+  ])
+  const [authState, setAuthState] = useState<AuthState>({
+    isLoggedIn: false,
+    user: null,
+  })
+
+  useEffect(() => {
+    if (cookies.user) {
+      setAuthState({ isLoggedIn: true, user: cookies.user })
+    }
+  }, [cookies])
+
+  const login = async (
+    username: string,
+    password: string
+  ): Promise<string | null> => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/auth/login",
+        {
+          uid: username,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+
+      console.log("Success:", response.data)
+      const { access_token, refresh_token, user } = response.data.data
+      setCookie("access_token", access_token)
+      setCookie("refresh_token", refresh_token)
+      setCookie("user", JSON.stringify(user))
+
+      setAuthState({ isLoggedIn: true, user })
+      return null
+    } catch (error: string | any | undefined) {
+      return (
+        error.response?.data?.message?.message ||
+        "An error occurred while logging in."
+      )
+    }
+  }
+
+  const logout = () => {
+    try {
+      axios.delete("http://localhost:5000/api/v1/auth/logout", {
+        headers: {
+          Authorization: `Bearer ${cookies.refresh_token}`,
+        },
+        withCredentials: true,
+      })
+      removeCookie("access_token")
+      removeCookie("refresh_token")
+      removeCookie("user")
+      setAuthState({ isLoggedIn: false, user: null })
+    } catch (error: string | any | undefined) {
+      console.log(error)
+    }
+  }
+
+  return (
+    <AuthContext.Provider value={{ ...authState, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export const useAuth = () => {
+  return useContext(AuthContext)
+}
