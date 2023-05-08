@@ -67,7 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
       )
 
-      const { access_token, refresh_token, user } = response.data.data
+      const { access_token, refresh_token, user } = response.data.payload.data
       setCookie("access_token", access_token)
       setCookie("refresh_token", refresh_token)
       setCookie("user", JSON.stringify(user))
