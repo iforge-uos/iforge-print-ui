@@ -53,21 +53,25 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+        <Link href="/profile">
+          <DropdownMenuItem style={{ cursor: "pointer"}}>
             <User className="mr-2 h-4 w-4" />
-            <Link href="/profile">
               {" "}
               <span>Profile</span>{" "}
-            </Link>
+
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <div>
+        <DropdownMenuItem onClick={handleLogout} style={{ cursor: "pointer" }}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span onClick={handleLogout}>Logout</span>
+          <span >Logout</span>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
+        </div>
+
       </DropdownMenuContent>
     </DropdownMenu>
   )

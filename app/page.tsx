@@ -41,8 +41,8 @@ export default function IndexPage() {
       </div>
       <div className="flex gap-4">
         <Link
-          href={siteConfig.links.main_site}
-          target="_blank"
+          href="/submit"
+
           rel="noreferrer"
           className={buttonVariants({ size: "lg" })}
         >
@@ -57,6 +57,33 @@ export default function IndexPage() {
           GitHub
         </Link>
       </div>
+      <div className="flex items-center py-20">
+        <div className="w-1/3">
+            {/* https://undraw.co/search */}
+            <img src="/home1.svg" className="w-500 h-auto"></img>
+
+        </div>
+        <div className="w-2/3 pl-20">
+          <div className = "max-w-xl">
+          <p className="text-sm font-extrabold text-muted-foreground">PRINTING</p>
+          <h1 className= "scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">dolor sit amet, consectetur adipiscing elit</h1>
+          <p className="leading-7 [&:not(:first-child)]:mt-6">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales porttitor purus, nec elementum neque malesuada in. Suspendisse potenti. Proin non dolor eu leo fermentum elementum ac nec sem. Suspendisse vehicula sit amet urna ut cursus.
+          consectetur adipiscing elit.
+          </p>
+          <div className = "pt-5">
+            <Link
+            href="/submit"
+            rel="noreferrer"
+            className={buttonVariants({ size: "lg" })}
+            >
+            get started
+          </Link>
+          </div>
+
+        </div>
+          </div>
+          </div>
     </section>
   )
 }
