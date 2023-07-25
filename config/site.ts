@@ -38,4 +38,9 @@ export const siteConfig = {
   easterEggs: {
     message: "Check back later for more info!",
   },
+  api: {
+    url: "http://127.0.0.1:5000/api/v1",
+    refresh_endpoint: "/auth/refresh",
+    login_endpoint: "/auth/login",
+  },
 }

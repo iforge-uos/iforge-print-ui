@@ -1,4 +1,9 @@
+import { UserTable } from './userTable'
+
+
 export default function UsersPage() {
+
+
   return (
     <>
       <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -8,6 +13,10 @@ export default function UsersPage() {
           </h1>
         </div>
       </section>
+      <div className="container mx-auto py-10">
+      <UserTable />
+      </div>
     </>
   )
 }
+
