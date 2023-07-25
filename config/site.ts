@@ -42,5 +42,6 @@ export const siteConfig = {
     url: "http://127.0.0.1:5000/api/v1",
     refresh_endpoint: "/auth/refresh",
     login_endpoint: "/auth/login",
+    logout_endpoint: "/auth/logout",
   },
 }

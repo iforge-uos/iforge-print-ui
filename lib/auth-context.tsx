@@ -9,6 +9,7 @@ import {
 } from "react"
 import axios from "axios"
 import { useCookies } from "react-cookie"
+import { siteConfig } from "@/config/site"
 
 interface AuthState {
   isLoggedIn: boolean
@@ -54,7 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   ): Promise<string | null> => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/login",
+        siteConfig.api.url + siteConfig.api.login_endpoint,
         {
           uid: username,
           password: password,
@@ -84,7 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     try {
-      axios.delete("http://localhost:5000/api/v1/auth/logout", {
+      axios.delete(siteConfig.api.url + siteConfig.api.logout_endpoint, {
         headers: {
           Authorization: `Bearer ${cookies.refresh_token}`,
         },
