@@ -36,6 +36,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
+        <head />
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
@@ -50,8 +51,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
               </div>
               <TailwindIndicator />
             </AuthProvider>
+            <Footer />
           </ThemeProvider>
-          <Footer />
+
         </body>
       </html>
     </>
