@@ -69,9 +69,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       )
 
       const { access_token, refresh_token, user } = response.data.payload.data
-      setCookie("access_token", access_token)
-      setCookie("refresh_token", refresh_token)
-      setCookie("user", JSON.stringify(user))
+      setCookie("access_token", String(access_token), { path: "/" })
+      setCookie("refresh_token", String(refresh_token), { path: "/" })
+      setCookie("user", JSON.stringify(user), { path: "/" })
 
       setAuthState({ isLoggedIn: true, user })
       return null
@@ -91,9 +91,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         },
         withCredentials: true,
       })
-      removeCookie("access_token")
-      removeCookie("refresh_token")
-      removeCookie("user")
+      removeCookie("access_token", { path: "/" })
+      removeCookie("refresh_token", { path: "/" })
+      removeCookie("user", { path: "/" })
       setAuthState({ isLoggedIn: false, user: null })
     } catch (error: string | any | undefined) {
       console.log(error)
