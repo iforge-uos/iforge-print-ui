@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import Image from 'next/image'
 import Link from "next/link"
 import figlet from "figlet"
 // @ts-ignore
@@ -60,8 +61,7 @@ export default function IndexPage() {
       <div className="flex items-center py-20">
         <div className="w-1/3">
             {/* https://undraw.co/search */}
-            <img src="/home1.svg" className="w-500 h-auto"></img>
-
+            <Image src="/home1.svg" className="w-500 h-auto" alt="homepage image" placeholder="blur"></Image>
         </div>
         <div className="w-2/3 pl-20">
           <div className = "max-w-xl">

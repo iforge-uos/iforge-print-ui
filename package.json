@@ -40,7 +40,6 @@
     "react-dom": "^18.2.0",
     "recharts": "^2.7.2",
     "sharp": "^0.32.4",
-    "swr": "^2.2.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
     "zod": "^3.21.4"
@@ -62,6 +61,7 @@
     "js-cookie": "^3.0.5",
     "postcss": "^8.4.27",
     "prettier": "^3.0.0",
+    "swr": "^2.2.1",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6"
   }
