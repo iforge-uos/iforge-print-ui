@@ -9,9 +9,9 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-secondary dark:bg-muted">
-        <div className="mw-300 container mx-auto py-4 pl-40">
+        <div className="mw-300 container mx-auto py-4">
         <div className="flex flex-col items-center justify-center md:flex-row md:gap-4">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-2 md:gap-2 lg:grid-cols-4">
           <div className="">
             <h3 className="text-m mb-2 scroll-m-20 font-semibold tracking-tight">
                 company
@@ -19,8 +19,8 @@ const Footer: React.FC = () => {
             <ul>
               <li>
               <a
-                    className={`cursor-pointer text-sm hover:text-green-500 ${
-                      activeLink === "about" ? "text-green-500" : ""
+                    className={`cursor-pointer text-sm hover:text-primary ${
+                      activeLink === "about" ? "text-primary" : ""
                     }`}
                     href="/"
                     onClick={() => setActiveLink("about")}
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
               <a
-                    className={`cursor-pointer text-sm hover:text-green-500 ${
+                    className={`cursor-pointer text-sm hover:text-primary ${
                       activeLink === "how-it-works" ? "text-green-500" : ""
                     }`}
                     href="/basics"
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
               <a
-                    className={`cursor-pointer text-sm hover:text-green-500 ${
+                    className={`cursor-pointer text-sm hover:text-primary ${
                       activeLink === "contact" ? "text-green-500" : ""
                     }`}
                     href="/contact"
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
               <a
-                    className={`cursor-pointer text-sm hover:text-green-500 ${
+                    className={`cursor-pointer text-sm hover:text-primary ${
                       activeLink === "training" ? "text-green-500" : ""
                     }`}
                     href="https://training.iforge.shef.ac.uk/"
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
             <ul>
               <li>
               <a
-                    className={`cursor-pointer text-sm hover:text-green-500 ${
+                    className={`cursor-pointer text-sm hover:text-primary ${
                       activeLink === "pricing" ? "text-green-500" : ""
                     }`}
                     href="/"
@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
               <a
-                    className={`cursor-pointer text-sm hover:text-green-500 ${
+                    className={`cursor-pointer text-sm hover:text-primary ${
                       activeLink === "agreement" ? "text-green-500" : ""
                     }`}
                     href="/"
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
             <ul>
               <li>
               <a
-                className={`cursor-pointer text-sm hover:text-green-500 ${
+                className={`cursor-pointer text-sm hover:text-primary ${
                 activeLink === "terms-of-service" ? "text-green-500" : ""
                 }`}
                 href="/"
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
               <a
-                className={`cursor-pointer text-sm hover:text-green-500 ${
+                className={`cursor-pointer text-sm hover:text-primary ${
                 activeLink === "privacy" ? "text-green-500" : ""
                  }`}
                 href="/"
@@ -122,7 +122,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "cookie-settings" ? "text-green-500" : ""
         }`}
         href="/"
@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
     </li>
     <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "guidelines" ? "text-green-500" : ""
         }`}
         href="/"
@@ -144,7 +144,7 @@ const Footer: React.FC = () => {
     </li>
     <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "acknowledgements" ? "text-green-500" : ""
         }`}
         href="/"
@@ -155,7 +155,7 @@ const Footer: React.FC = () => {
     </li>
     <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "licenses" ? "text-green-500" : ""
         }`}
         href="/"
@@ -174,7 +174,7 @@ const Footer: React.FC = () => {
             <ul>
             <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "instagram" ? "text-green-500" : ""
         }`}
         href="/"
@@ -185,7 +185,7 @@ const Footer: React.FC = () => {
     </li>
     <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "twitter" ? "text-green-500" : ""
         }`}
         href="/"
@@ -196,7 +196,7 @@ const Footer: React.FC = () => {
     </li>
     <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "facebook" ? "text-green-500" : ""
         }`}
         href="/"
@@ -207,7 +207,7 @@ const Footer: React.FC = () => {
     </li>
     <li>
       <a
-        className={`cursor-pointer text-sm hover:text-green-500 ${
+        className={`cursor-pointer text-sm hover:text-primary ${
           activeLink === "youtube" ? "text-green-500" : ""
         }`}
         href="/"
@@ -221,12 +221,12 @@ const Footer: React.FC = () => {
         </div>
             </div>
 
-        <div className="container mx-auto mt-8 flex items-center justify-between py-4">
+        <div className="container mx-auto mt-8 flex items-center justify-between py-4 gap-6 ">
             <div className = "">
                 <h3 className="mb-2 scroll-m-20 text-xl font-bold tracking-tight">iForge</h3>
             </div>
-            <div className="text-white">
-            <p className="text-sm text-muted-foreground">iForge © {new Date().getFullYear()} All rights reserved. </p>
+            <div className="text-white hidden md:flex">
+            <p className="text-sm text-muted-foreground ">iForge © {new Date().getFullYear()} All rights reserved. </p>
             </div>
             <div className="flex space-x-4">
             <a href="/">
