@@ -5,6 +5,9 @@ import {
   Printer,
   SunMedium,
   Twitter,
+  Menu,
+  
+
 } from "lucide-react"
 
 export const Icons = {
@@ -12,6 +15,7 @@ export const Icons = {
   moon: Moon,
   twitter: Twitter,
   logo: Printer,
+  menu: Menu,
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path
