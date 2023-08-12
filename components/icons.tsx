@@ -7,6 +7,8 @@ import {
   Twitter,
   Menu,
   X,
+  User,
+  Grip,
   
 
 } from "lucide-react"
@@ -18,6 +20,8 @@ export const Icons = {
   logo: Printer,
   menu: Menu,
   x: X,
+  user: User,
+  grip: Grip,
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path

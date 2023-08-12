@@ -9,10 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Activity, Timer, Printer, Users } from "lucide-react"
+import { Activity, Timer, Printer, Users, } from "lucide-react"
 import { Overview } from "../admin/components/overview"
 import { Prints, columns } from "@/app/admin/components/columns"
 import { DataTable } from "@/app/admin/components/data-table"
+
+import  Sidebar  from "@/app/profile/components/Sidebar"
 
 
 async function getData(): Promise<Prints[]> {
@@ -100,7 +102,12 @@ export default function ProfilePage() {
 
   return (
     <>
-      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+    <div className="flex">
+      <div className="min-h-screen">
+        <Sidebar />
+      </div>
+
+      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10 ">
   <div className="flex max-w-[980px] flex-col items-start gap-2">
     <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
       Hello, {serverName}
@@ -143,7 +150,7 @@ export default function ProfilePage() {
                     <Timer className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">453 minutes</div>
+                    <div className="text-2xl font-bold">7h 23m</div>
                     <p className="text-xs text-muted-foreground">
                        <span className="text-green-500">+19%</span> from last month
                     </p>
@@ -169,7 +176,7 @@ export default function ProfilePage() {
                 </CardContent>
               </Card>
               </div>
-              <div className="max-w-sm">
+              <div className="max-w-screen">
                 <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-xl md:text-3xl lg:text-4xl">
                   Your past prints
                 </h1>
@@ -180,6 +187,8 @@ export default function ProfilePage() {
 
 
 </section>
+</div>
+
 
     </>
   );
