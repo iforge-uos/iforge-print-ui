@@ -122,7 +122,7 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex items-center space-x-6 lg:space-x-8 p-2">
         <div className="flex items-center space-x-2 pl-2 pt-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select

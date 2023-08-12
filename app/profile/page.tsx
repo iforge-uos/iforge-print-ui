@@ -108,7 +108,7 @@ export default function ProfilePage() {
 
   </div>
   <div className="grid gap-4 pt-10 md:grid-cols-2 lg:grid-cols-4 grid-cols-2">
-                <Card className="max-w-xs shadow">
+                <Card className="max-w-xs shadow bg-secondary">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                      User level
@@ -122,7 +122,7 @@ export default function ProfilePage() {
                     </p>
                   </CardContent>
                 </Card>
-                <Card className="max-w-xs shadow">
+                <Card className="max-w-xs shadow bg-secondary">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                       Number of prints
@@ -137,7 +137,7 @@ export default function ProfilePage() {
                   </CardContent>
                 </Card>
 
-                <Card className="max-w-xs shadow">
+                <Card className="max-w-xs shadow bg-secondary">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Time spent in iForge</CardTitle>
                     <Timer className="h-4 w-4 text-muted-foreground" />
