@@ -107,8 +107,8 @@ export default function ProfilePage() {
     </h1>
 
   </div>
-  <div className="grid gap-4 pt-10 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
+  <div className="grid gap-4 pt-10 md:grid-cols-2 lg:grid-cols-4 grid-cols-2">
+                <Card className="max-w-xs shadow">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                      User level
@@ -122,7 +122,7 @@ export default function ProfilePage() {
                     </p>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="max-w-xs shadow">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
                       Number of prints
@@ -137,7 +137,7 @@ export default function ProfilePage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="max-w-xs shadow">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Time spent in iForge</CardTitle>
                     <Timer className="h-4 w-4 text-muted-foreground" />
@@ -151,16 +151,16 @@ export default function ProfilePage() {
                 </Card>
 
               </div>
-              <div className="grid gap-4 pt-5 md:grid-cols-2">
-                  <Card className="max-w-[660px]">
+              <div className="grid gap-4 pt-5 md:grid-cols-2 max-w-screen">
+                <Card className="max-h-60 max-w-sm xl:max-w-[660px] xl:max-h-[600px] lg:max-w-[660px] lg:max-h-[600px]">
                     <CardHeader className= "space-y-0 pb-5">
                       < CardTitle >Prints made</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                     <Overview />
+                    <CardContent className="max-h-xs">
+                      <Overview/>
                     </CardContent>
-              </Card>
-              <Card className="max-h-[250px] max-w-[330px]">
+                  </Card>
+              <Card className="max-h-lg max-w-lg">
                 <CardHeader className="text-2xl font-bold">
                   dolor sit amet
                 </CardHeader>
@@ -169,13 +169,11 @@ export default function ProfilePage() {
                 </CardContent>
               </Card>
               </div>
-              <div>
-              <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-xl md:text-3xl lg:text-4xl">
-                Your past prints
-               </h1>
-               <DataTable columns={columns} data={data} />
-
-
+              <div className="max-w-sm">
+                <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-xl md:text-3xl lg:text-4xl">
+                  Your past prints
+                </h1>
+                <DataTable columns={columns} data={data} />
               </div>
 
 
