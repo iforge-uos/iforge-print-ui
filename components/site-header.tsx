@@ -58,29 +58,38 @@ export function SiteHeader({ items }: MainNavProps) {
 
         {/* mobile menu */}
         <div
-          className={`fixed left-0 top-0 w-[65%] sm:hidden h-screen bg-[#ecf0f3] dark:bg-neutral-700 p-10 ease-in duration-300 ${
-            menuOpen ? "fixed right-[65%] top-0 p-10 ease-in duartion-300" : "fixed left-[-100%] top-0 p-10 ease-in duartion-300"
+          className={`fixed right-0 top-0 w-[65%] sm:hidden h-screen bg-[#ecf0f3] dark:bg-neutral-700 p-10 ease-in-out duration-300 ${
+          menuOpen ? "right-0 p-10" : "-right-[65%] p-10"
           }`}
-        >
-          <div className = "flex-col py-4">
+          >
+          <div className="flex w-full items-center justify-end gap-3">\
+            <div className="">
+              <ThemeToggle/>
+            </div>
+            <div onClick = {handleNav} className = "cursor-pointer">
+              <Icons.x  size={25}/>
+            </div>
+            
+          </div>
+          <div className = "flex-col py-4 ">
             <ul>
               <Link href="/">
                 <li onClick = {() => setMenuOpen(false)}
-                className = "py-4 cursor-pointer"
+                className = "py-4 cursor-pointer font-proto-mono"
                 >
                   Home
                 </li>
               </Link>
               <Link href="/printers">
                 <li onClick = {() => setMenuOpen(false)}
-                className = "py-4 cursor-pointer"
+                className = "py-4 cursor-pointer font-proto-mono"
                 >
                   Printers
                 </li>
               </Link>
               <Link href="/prints">
                 <li onClick = {() => setMenuOpen(false)}
-                className = "py-4 cursor-pointer"
+                className = "py-4 cursor-pointer font-proto-mono"
                 >
                   Prints
                 </li>
@@ -88,7 +97,7 @@ export function SiteHeader({ items }: MainNavProps) {
 
               <Link href="/users">
                 <li onClick = {() => setMenuOpen(false)}
-                className = "py-4 cursor-pointer"
+                className = "py-4 cursor-pointer font-proto-mono"
                 >
                   Users
                 </li>
@@ -96,25 +105,26 @@ export function SiteHeader({ items }: MainNavProps) {
 
               <Link href="/profile">
                 <li onClick = {() => setMenuOpen(false)}
-                className = "py-4 cursor-pointer"
+                className = "py-4 cursor-pointer font-proto-mono"
                 >
                   Profile
                 </li>
               </Link>
               <Link href="/admin">
                 <li onClick = {() => setMenuOpen(false)}
-                className = "py-4 cursor-pointer"
+                className = "py-4 cursor-pointer font-proto-mono"
                 >
                   Admin
                 </li>
               </Link>
+              
             </ul>
             <div className="flex gap-5">
-        <Icons.twitter className="h-5 w-5 fill-current" />
-        <Icons.gitHub className="h-5 w-5" />
+              <Icons.twitter className="h-5 w-5 fill-current" />
+              <Icons.gitHub className="h-5 w-5" />
+            </div>
 
-        </div>
-        </div>
+          </div>
         </div>
       </div>
     </header>

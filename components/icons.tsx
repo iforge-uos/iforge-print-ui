@@ -6,6 +6,7 @@ import {
   SunMedium,
   Twitter,
   Menu,
+  X,
   
 
 } from "lucide-react"
@@ -16,6 +17,7 @@ export const Icons = {
   twitter: Twitter,
   logo: Printer,
   menu: Menu,
+  x: X,
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path
