@@ -13,7 +13,7 @@ const Sidebar = () => {
     const gravatarUrl = getGravatarUrl(user.email) // Generate Gravatar URL
 
   return (
-<div className="flex h-screen flex-col justify-between border-e bg-white">
+<div className="flex min-h-full flex-col justify-between border-e bg-white">
   <div className="px-4 py-6">
     <span
       className="grid text-xs text-gray-600"
