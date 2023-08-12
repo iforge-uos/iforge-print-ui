@@ -55,19 +55,19 @@ export const columns: ColumnDef<Printer>[] = [
   },
   {
     accessorKey: "total_filament_used",
-    header: "Total Filament Used",
+    header: "Total Filament Used (g)",
   },
   {
     accessorKey: "total_time_printed",
-    header: "Total Time Printed",
-  },
-  {
-    accessorKey: "failed_prints",
-    header: "Failed Prints",
+    header: "Total Time Printed (h)",
   },
   {
     accessorKey: "completed_prints",
     header: "Completed Prints",
+  },
+  {
+    accessorKey: "failed_prints",
+    header: "Failed Prints",
   },
   {
     accessorKey: "days_on_time",
