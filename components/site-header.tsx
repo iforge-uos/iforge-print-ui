@@ -123,7 +123,9 @@ export function SiteHeader({ items }: MainNavProps) {
               <Icons.twitter className="h-5 w-5 fill-current" />
               <Icons.gitHub className="h-5 w-5" />
             </div>
-
+            <span className="font-proto-mono font-bold sm:inline-block fixed bottom-5 ">
+              IFORGE \
+            </span>
           </div>
         </div>
       </div>
