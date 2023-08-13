@@ -13,7 +13,7 @@ const Sidebar = () => {
     const gravatarUrl = getGravatarUrl(user.email) // Generate Gravatar URL
 
   return (
-<div className="flex min-h-full flex-col justify-between border-e bg-white">
+<div className="flex min-h-full flex-col justify-between border-e bg-accent ">
   <div className="px-4 py-6">
     <span
       className="grid text-xs text-gray-600"
@@ -22,7 +22,7 @@ const Sidebar = () => {
     </span>
 
     <ul className="mt-6 space-y-1">
-      <li className="flex cursor-pointer gap-8 rounded-lg px-4 py-2 bg-gray-100 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+      <li className="flex cursor-pointer gap-8 rounded-lg px-4 py-2 bg-gray-100 dark:bg-neutral-600 dark:text-white text-gray-500  hover:bg-gray-100 hover:text-gray-700">
         <Icons.grip className="h-5 w-5"/>
         <a
           href=""
@@ -34,7 +34,7 @@ const Sidebar = () => {
 
       
 
-      <li className="flex cursor-pointer gap-8 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+      <li className="flex cursor-pointer gap-8 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-600 dark:text-white hover:text-gray-700">
         <Icons.logo className="h-5 w-5"/>
         <a
           href="profile/past-prints"
@@ -49,7 +49,7 @@ const Sidebar = () => {
       <li>
         <details className="group [&_summary::-webkit-details-marker]:hidden">
           <summary
-            className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 dark:hover:bg-neutral-600 dark:text-white hover:bg-gray-100 hover:text-gray-700"
           >
             <Icons.user />
             <span className="text-sm font-medium"> Account </span>
@@ -76,7 +76,7 @@ const Sidebar = () => {
             <li>
               <a
                 href=""
-                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-600 dark:text-white hover:text-gray-700"
               >
                 Details
               </a>
@@ -85,7 +85,7 @@ const Sidebar = () => {
             <li>
               <a
                 href=""
-                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-600 dark:text-white hover:text-gray-700"
               >
                 Data
               </a>
@@ -95,7 +95,7 @@ const Sidebar = () => {
               <form action="/logout">
                 <button
                   type="submit"
-                  className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
+                  className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 dark:hover:bg-neutral-600 dark:text-white hover:text-gray-700"
                 >
                   Logout
                 </button>
@@ -107,8 +107,8 @@ const Sidebar = () => {
     </ul>
   </div>
 
-  <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
-    <a href="#" className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
+  <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 dark:border-neutral-700">
+    <a href="#" className="flex items-center gap-2 bg-accente p-4 hover:bg-gray-50 dark:hover:bg-neutral-700">
     <Avatar className="h-8 w-8">
             <AvatarImage />
             <AvatarImage src={gravatarUrl} alt="user" />
