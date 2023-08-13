@@ -16,7 +16,7 @@ export type Prints = {
   print_name: string
   printer_type: string
   filament_used: number
-  time_printed: number
+  print_time: number
   location: string
   render: string
 }
@@ -45,9 +45,31 @@ export const columns: ColumnDef<Prints>[] = [
     header: "Filament Used",
   },
   {
-    accessorKey: "time_printed",
-    header: "Time Printed",
+    accessorKey: "print_time",
+    header: "Print Time",
+    cell: ({ row }) => {
+      const printTime = row.original.print_time;
+      let colorClass = "";
+      let bgColorClass = "";
+      if (printTime < 2) {
+        colorClass = "text-green-600";
+        bgColorClass = "bg-green-100";
+      } else if (printTime >= 2 && printTime <= 6) {
+        colorClass = "text-orange-500";
+        bgColorClass = "bg-orange-100";
+      } else {
+        colorClass = "text-red-500";
+        bgColorClass = "bg-red-100";
+      }
+
+      return (
+        <div className={`rounded-md p-1.5 w-12 ${bgColorClass}`}>
+          <div className={colorClass}>{printTime}h</div>
+        </div>
+      );
+    },
   },
+
   {
     accessorKey: "location",
     header: "Location",
