@@ -64,7 +64,7 @@ export const columns: ColumnDef<Prints>[] = [
 
       return (
         <div className={`rounded-md p-1.5 w-12 ${bgColorClass}`}>
-          <div className={colorClass}>{printTime}h</div>
+          <div className={`${colorClass} dark:text-black` }>{printTime}h</div>
         </div>
       );
     },
