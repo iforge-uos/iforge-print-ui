@@ -4,7 +4,7 @@ import { PrinterLocation, PrinterType } from "@/types/api/printer"
 import useSWR from "swr";
 import { fetcher } from "@/lib/api";
 import * as z from "zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import React, {useEffect} from "react";
 import { Button } from "@/components/ui/button"
 import {
@@ -26,7 +26,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 
 const PrinterLocationZod = z.enum([PrinterLocation.heartspace, PrinterLocation.diamond]);
