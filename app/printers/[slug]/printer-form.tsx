@@ -1,11 +1,12 @@
 "use client"
 
-import { PrinterLocation, PrinterType } from "@/types/api/printer"
-import useSWR from "swr";
-import { fetcher } from "@/lib/api";
-import * as z from "zod"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import React, {useEffect} from "react";
+import useSWR from "swr"
+import * as z from "zod"
+
+import { PrinterLocation, PrinterType } from "@/types/api/printer"
+import { fetcher } from "@/lib/api"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -16,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-
 import { Input } from "@/components/ui/input"
 import {
   Select,
@@ -25,33 +25,54 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import { useToast } from "@/components/ui/use-toast"
 
-const PrinterLocationZod = z.enum([PrinterLocation.heartspace, PrinterLocation.diamond]);
-const PrinterTypeZod = z.enum([PrinterType.ultimaker, PrinterType.prusa]);
+const PrinterLocationZod = z.enum([
+  PrinterLocation.heartspace,
+  PrinterLocation.diamond,
+])
+const PrinterTypeZod = z.enum([PrinterType.ultimaker, PrinterType.prusa])
 
 const printerFormSchema = z.object({
   id: z.number().nonnegative("ID must be non-negative"),
   printer_name: z.string().min(3, "Printer name must be at least 3 characters"),
   printer_type: PrinterTypeZod,
-  ip: z.string().regex(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/, "IP address format is invalid").or(z.null()),
-  api_key: z.string().min(5, "API key should be at least 5 characters long").or(z.null()),
-  total_time_printed: z.number().nonnegative("Total time printed must be non-negative").or(z.null()),
-  completed_prints: z.number().nonnegative("Number of completed prints must be non-negative").or(z.null()),
-  failed_prints: z.number().nonnegative("Number of failed prints must be non-negative").or(z.null()),
-  total_filament_used: z.number().nonnegative("Total filament used must be non-negative").or(z.null()),
-  days_on_time: z.number().nonnegative("Days on time must be non-negative").or(z.null()),
+  ip: z
+    .string()
+    .regex(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/, "IP address format is invalid")
+    .or(z.null()),
+  api_key: z
+    .string()
+    .min(5, "API key should be at least 5 characters long")
+    .or(z.null()),
+  total_time_printed: z
+    .number()
+    .nonnegative("Total time printed must be non-negative")
+    .or(z.null()),
+  completed_prints: z
+    .number()
+    .nonnegative("Number of completed prints must be non-negative")
+    .or(z.null()),
+  failed_prints: z
+    .number()
+    .nonnegative("Number of failed prints must be non-negative")
+    .or(z.null()),
+  total_filament_used: z
+    .number()
+    .nonnegative("Total filament used must be non-negative")
+    .or(z.null()),
+  days_on_time: z
+    .number()
+    .nonnegative("Days on time must be non-negative")
+    .or(z.null()),
   location: PrinterLocationZod,
-});
+})
 
-type PrinterFormValues = z.infer<typeof printerFormSchema>;
-
+type PrinterFormValues = z.infer<typeof printerFormSchema>
 
 type PrinterFormProps = {
   slug: number
 }
-
 
 const defaultValues: Partial<PrinterFormValues> = {
   printer_name: "",
@@ -66,57 +87,59 @@ const defaultValues: Partial<PrinterFormValues> = {
   location: PrinterLocation.heartspace,
 }
 
-const mapPrinterTypeValue = (value : string) => {
-  switch(value) {
+const mapPrinterTypeValue = (value: string) => {
+  switch (value) {
     case "ultimaker":
-      return PrinterType.ultimaker;
+      return PrinterType.ultimaker
     case "prusa":
-      return PrinterType.prusa;
+      return PrinterType.prusa
     default:
-      return value;  // Return original value if not matched
+      return value // Return original value if not matched
   }
-};
+}
 
-const mapPrinterLocationValue = (value : string) => {
-  switch(value) {
+const mapPrinterLocationValue = (value: string) => {
+  switch (value) {
     case "heartspace":
-      return PrinterLocation.heartspace;
+      return PrinterLocation.heartspace
     case "diamond":
-      return PrinterLocation.diamond;
+      return PrinterLocation.diamond
     default:
-      return value;  // Return original value if not matched
+      return value // Return original value if not matched
   }
 }
 
 const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
-
   const { toast } = useToast()
   // Form initialization with default values
   const form = useForm<PrinterFormValues>({
     defaultValues,
     mode: "onChange",
-  });
+  })
 
   // Data fetching using SWR
-  const { data: res, error, isValidating } = useSWR(`/printers/view/${slug}`, fetcher, {
+  const {
+    data: res,
+    error,
+    isValidating,
+  } = useSWR(`/printers/view/${slug}`, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    refreshInterval: 0
-  });
+    refreshInterval: 0,
+  })
 
   // Update form values once data is fetched successfully
   useEffect(() => {
     if (res && !isValidating) {
       Object.keys(res.data).forEach((key) => {
-        form.setValue(key as keyof PrinterFormValues, res.data[key]);
-      });
+        form.setValue(key as keyof PrinterFormValues, res.data[key])
+      })
     }
-  }, [res, form.setValue, isValidating, form]);
+  }, [res, form.setValue, isValidating, form])
 
   // Return conditions based on fetch state
-  if (error) return <div>Error loading data</div>;
-  if (!res) return <div>Loading...</div>;
-
+  if (error) return <div>Error loading data</div>
+  if (!res) return <div>Loading...</div>
 
   // Form submission logic
   function onSubmit(values: z.infer<typeof printerFormSchema>) {
@@ -127,7 +150,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
           <code className="text-white">{JSON.stringify(values, null, 2)}</code>
         </pre>
       ),
-    });
+    })
   }
 
   return (
@@ -143,7 +166,8 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input placeholder="Ultimaker" {...field} />
               </FormControl>
               <FormDescription>
-                Enter the name of the printer. This should be at least 3 characters long.
+                Enter the name of the printer. This should be at least 3
+                characters long.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -155,14 +179,19 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Printer Type</FormLabel>
-              <Select onValueChange={field.onChange} value={mapPrinterTypeValue(field.value)}>
+              <Select
+                onValueChange={field.onChange}
+                value={mapPrinterTypeValue(field.value)}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a printer type" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={PrinterType.ultimaker}>Ultimaker Extended 2+</SelectItem>
+                  <SelectItem value={PrinterType.ultimaker}>
+                    Ultimaker Extended 2+
+                  </SelectItem>
                   <SelectItem value={PrinterType.prusa}>Prusa MK3S+</SelectItem>
                 </SelectContent>
               </Select>
@@ -179,7 +208,11 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
               <FormControl>
                 <Input
                   placeholder="1.1.1.1"
-                  defaultValue={field && (field.value !== undefined && field.value !== null) ? field.value.toString() : ''}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
                 />
               </FormControl>
               <FormDescription>
@@ -198,7 +231,11 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
               <FormControl>
                 <Input
                   placeholder="Enter API key"
-                  defaultValue={field && (field.value !== undefined && field.value !== null) ? field.value.toString() : ''}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
                 />
               </FormControl>
               <FormDescription>
@@ -218,8 +255,16 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
-                  onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
+                  onChange={(e) =>
+                    field.onChange(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
                 />
               </FormControl>
               <FormDescription>
@@ -240,8 +285,16 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
-                  onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
+                  onChange={(e) =>
+                    field.onChange(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
                 />
               </FormControl>
               <FormDescription>
@@ -262,8 +315,16 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
-                  onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
+                  onChange={(e) =>
+                    field.onChange(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
                 />
               </FormControl>
               <FormDescription>
@@ -284,12 +345,21 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
-                  onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
+                  onChange={(e) =>
+                    field.onChange(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
                 />
               </FormControl>
               <FormDescription>
-                Enter the total amount of filament used (in grams or other unit).
+                Enter the total amount of filament used (in grams or other
+                unit).
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -306,8 +376,16 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
-                  onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
+                  defaultValue={
+                    field && field.value !== undefined && field.value !== null
+                      ? field.value.toString()
+                      : ""
+                  }
+                  onChange={(e) =>
+                    field.onChange(
+                      e.target.value ? Number(e.target.value) : null
+                    )
+                  }
                 />
               </FormControl>
               <FormDescription>
@@ -323,15 +401,22 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Location</FormLabel>
-              <Select onValueChange={field.onChange} value={mapPrinterLocationValue(field.value)}>
+              <Select
+                onValueChange={field.onChange}
+                value={mapPrinterLocationValue(field.value)}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a location" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={PrinterLocation.heartspace}>Heartspace</SelectItem>
-                  <SelectItem value={PrinterLocation.diamond}>Diamond</SelectItem>
+                  <SelectItem value={PrinterLocation.heartspace}>
+                    Heartspace
+                  </SelectItem>
+                  <SelectItem value={PrinterLocation.diamond}>
+                    Diamond
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -341,6 +426,6 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
         <Button type="submit">Save Printer</Button>
       </form>
     </Form>
-  );
+  )
 }
-export default PrinterForm;
+export default PrinterForm

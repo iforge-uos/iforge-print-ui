@@ -1,11 +1,13 @@
 "use client"
 
-import useSWR from "swr";
-import { fetcher } from "@/lib/api";
-import * as z from "zod"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import React, {useEffect} from "react";
+import useSWR from "swr"
+import * as z from "zod"
+
+import { fetcher } from "@/lib/api"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -15,67 +17,64 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-
 import { useToast } from "@/components/ui/use-toast"
 
-
 const userFormSchema = z.object({
-    email: z.string().email(),
-    uid: z.string().regex(/^.{3}\d{2}.{3}$/),
-    name: z.string().min(1).max(100),
-    short_name: z.string().nullable(),
-    user_score: z.number().min(0).max(100),
-    is_rep: z.boolean(),
-    score_editable: z.boolean(),
-    completed_count: z.number().int().min(0),
-    failed_count: z.number().int().min(0),
-    rejected_count: z.number().int().min(0),
-    slice_completed_count: z.number().int().min(0),
-    slice_failed_count: z.number().int().min(0),
-    slice_rejected_count: z.number().int().min(0),
-});
+  email: z.string().email(),
+  uid: z.string().regex(/^.{3}\d{2}.{3}$/),
+  name: z.string().min(1).max(100),
+  short_name: z.string().nullable(),
+  user_score: z.number().min(0).max(100),
+  is_rep: z.boolean(),
+  score_editable: z.boolean(),
+  completed_count: z.number().int().min(0),
+  failed_count: z.number().int().min(0),
+  rejected_count: z.number().int().min(0),
+  slice_completed_count: z.number().int().min(0),
+  slice_failed_count: z.number().int().min(0),
+  slice_rejected_count: z.number().int().min(0),
+})
 
-type UserFormValues = z.infer<typeof userFormSchema>;
-
+type UserFormValues = z.infer<typeof userFormSchema>
 
 type UserFormProps = {
   slug: number
 }
 
-
-const defaultValues: Partial<UserFormValues> = {};
+const defaultValues: Partial<UserFormValues> = {}
 
 const UserForm: React.FC<UserFormProps> = ({ slug }) => {
-
   const { toast } = useToast()
   // Form initialization with default values
   const form = useForm<UserFormValues>({
     defaultValues,
     mode: "onChange",
-  });
+  })
 
   // Data fetching using SWR
-  const { data: res, error, isValidating } = useSWR(`/users/view/${slug}`, fetcher, {
+  const {
+    data: res,
+    error,
+    isValidating,
+  } = useSWR(`/users/view/${slug}`, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    refreshInterval: 0
-  });
+    refreshInterval: 0,
+  })
 
   // Update form values once data is fetched successfully
   useEffect(() => {
     if (res && !isValidating) {
       Object.keys(res.data.user).forEach((key) => {
-        form.setValue(key as keyof UserFormValues, res.data.user[key]);
-      });
+        form.setValue(key as keyof UserFormValues, res.data.user[key])
+      })
     }
-  }, [res, form.setValue, isValidating, form]);
+  }, [res, form.setValue, isValidating, form])
 
   // Return conditions based on fetch state
-  if (error) return <div>Error loading data</div>;
-  if (!res) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>
+  if (!res) return <div>Loading...</div>
   console.log(res.data)
 
   // Form submission logic
@@ -87,7 +86,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
           <code className="text-white">{JSON.stringify(values, null, 2)}</code>
         </pre>
       ),
-    });
+    })
   }
 
   return (
@@ -102,9 +101,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
               <FormControl>
                 <Input placeholder="example@sheffield.ac.uk" {...field} />
               </FormControl>
-              <FormDescription>
-                Enter a valid email address.
-              </FormDescription>
+              <FormDescription>Enter a valid email address.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -136,9 +133,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
               <FormControl>
                 <Input placeholder="Sam Piper" {...field} />
               </FormControl>
-              <FormDescription>
-                Enter your full name.
-              </FormDescription>
+              <FormDescription>Enter your full name.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -151,7 +146,11 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
             <FormItem>
               <FormLabel>Short Name</FormLabel>
               <FormControl>
-                <Input placeholder="Sam" value={field.value || ''} onChange={field.onChange} />
+                <Input
+                  placeholder="Sam"
+                  value={field.value || ""}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormDescription>
                 Enter your short name or nickname.
@@ -168,15 +167,9 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
             <FormItem>
               <FormLabel>User Score</FormLabel>
               <FormControl>
-                <Input
-                  type="number"
-                  placeholder="0"
-                  {...field}
-                />
+                <Input type="number" placeholder="0" {...field} />
               </FormControl>
-              <FormDescription>
-                Enter the user score.
-              </FormDescription>
+              <FormDescription>Enter the user score.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -187,7 +180,13 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
           name="is_rep"
           render={({ field }) => (
             <FormItem>
-              <Checkbox id="is_rep" checked={field.value} onChange={(e) => field.onChange((e.target as HTMLInputElement).checked)} />
+              <Checkbox
+                id="is_rep"
+                checked={field.value}
+                onChange={(e) =>
+                  field.onChange((e.target as HTMLInputElement).checked)
+                }
+              />
               <label
                 htmlFor="is_rep"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -204,7 +203,13 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
           name="score_editable"
           render={({ field }) => (
             <FormItem>
-              <Checkbox id="score_editable" checked={field.value} onChange={(e) => field.onChange((e.target as HTMLInputElement).checked)} />
+              <Checkbox
+                id="score_editable"
+                checked={field.value}
+                onChange={(e) =>
+                  field.onChange((e.target as HTMLInputElement).checked)
+                }
+              />
               <label
                 htmlFor="score_editable"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -223,11 +228,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
             <FormItem>
               <FormLabel>Completed Count</FormLabel>
               <FormControl>
-                <Input
-                  type="number"
-                  placeholder="0"
-                  {...field}
-                />
+                <Input type="number" placeholder="0" {...field} />
               </FormControl>
               <FormDescription>
                 Enter the number of tasks completed by the user.
@@ -244,11 +245,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
             <FormItem>
               <FormLabel>Failed Count</FormLabel>
               <FormControl>
-                <Input
-                  type="number"
-                  placeholder="0"
-                  {...field}
-                />
+                <Input type="number" placeholder="0" {...field} />
               </FormControl>
               <FormDescription>
                 Enter the number of tasks failed by the user.
@@ -260,6 +257,6 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
         <Button type="submit">Save User</Button>
       </form>
     </Form>
-  );
+  )
 }
-export default UserForm;
+export default UserForm

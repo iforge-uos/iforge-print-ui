@@ -1,6 +1,15 @@
 "use client"
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 
 const data = [
   {
@@ -71,7 +80,13 @@ export function Overview() {
           axisLine={false}
           tickFormatter={(value) => `${value}`}
         />
-        <Line dataKey="total" fill="#bdbdbd" strokeWidth="3" dot={false} type ="natural"/>
+        <Line
+          dataKey="total"
+          fill="#bdbdbd"
+          strokeWidth="3"
+          dot={false}
+          type="natural"
+        />
       </LineChart>
     </ResponsiveContainer>
   )

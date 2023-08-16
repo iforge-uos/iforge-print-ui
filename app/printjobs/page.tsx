@@ -1,6 +1,5 @@
-import { Prints, columns } from "@/app/printjobs/components/columns"
+import { columns, Prints } from "@/app/printjobs/components/columns"
 import { DataTable } from "@/app/printjobs/components/data-table"
-
 
 async function getData(): Promise<Prints[]> {
   // Fetch data from your API here.
@@ -77,8 +76,8 @@ async function getData(): Promise<Prints[]> {
       notes: "dont review print",
       id: "11-yg3YMsVFnXpc",
     },
-
-  ]};
+  ]
+}
 export default async function JobsPage() {
   const data = await getData()
 
@@ -90,11 +89,11 @@ export default async function JobsPage() {
             Print Jobs
           </h1>
           <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-          Queued prints
-        </p>
+            Queued prints
+          </p>
         </div>
         <div>
-        <DataTable columns={columns} data={data} />
+          <DataTable columns={columns} data={data} />
         </div>
       </section>
     </>

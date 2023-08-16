@@ -45,7 +45,9 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="font-proto-mono text-sm font-medium leading-none">{user.uid}</p>
+            <p className="font-proto-mono text-sm font-medium leading-none">
+              {user.uid}
+            </p>
             <p className="font-proto-mono text-xs leading-none text-muted-foreground">
               {user.email}
             </p>
@@ -53,25 +55,24 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-        <Link href="/profile">
-          <DropdownMenuItem style={{ cursor: "pointer"}}>
-            <User className="mr-2 h-4 w-4" />
-              {" "}
-              <span>Profile</span>{" "}
-
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <Link href="/profile">
+            <DropdownMenuItem style={{ cursor: "pointer" }}>
+              <User className="mr-2 h-4 w-4" /> <span>Profile</span>{" "}
+              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <div>
-        <DropdownMenuItem onClick={handleLogout} style={{ cursor: "pointer" }}>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span >Logout</span>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={handleLogout}
+            style={{ cursor: "pointer" }}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Logout</span>
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
         </div>
-
       </DropdownMenuContent>
     </DropdownMenu>
   )

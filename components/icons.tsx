@@ -1,16 +1,14 @@
 import {
+  Grip,
   Laptop,
   LucideProps,
+  Menu,
   Moon,
   Printer,
   SunMedium,
   Twitter,
-  Menu,
-  X,
   User,
-  Grip,
-  
-
+  X,
 } from "lucide-react"
 
 export const Icons = {
