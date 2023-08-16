@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Link from "next/link";
 
 export type Printer = {
   id: number
@@ -98,7 +99,11 @@ export const columns: ColumnDef<Printer>[] = [
               Copy printer ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Printer Details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/printers/${encodeURIComponent(printer.id)}`}>
+                View Printer Details
+              </Link>
+              </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

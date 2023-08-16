@@ -1,9 +1,9 @@
-enum PrinterLocation {
+export enum PrinterLocation {
   heartspace = "Heartspace",
   diamond = "Diamond"
 }
 
-enum PrinterType {
+export enum PrinterType {
   ultimaker = "Ultimaker Extended 2+",
   prusa = "Prusa MK3S+"
 }
