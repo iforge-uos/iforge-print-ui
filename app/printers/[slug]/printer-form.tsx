@@ -67,10 +67,31 @@ const defaultValues: Partial<PrinterFormValues> = {
   location: PrinterLocation.heartspace,
 }
 
+const mapPrinterTypeValue = (value : string) => {
+  switch(value) {
+    case "ultimaker":
+      return PrinterType.ultimaker;
+    case "prusa":
+      return PrinterType.prusa;
+    default:
+      return value;  // Return original value if not matched
+  }
+};
+
+const mapPrinterLocationValue = (value : string) => {
+  switch(value) {
+    case "heartspace":
+      return PrinterLocation.heartspace;
+    case "diamond":
+      return PrinterLocation.diamond;
+    default:
+      return value;  // Return original value if not matched
+  }
+}
+
 const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
 
-  const { toast } = useToast();
-
+  const { toast } = useToast()
   // Form initialization with default values
   const form = useForm<PrinterFormValues>({
     defaultValues,
@@ -97,13 +118,14 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
   if (error) return <div>Error loading data</div>;
   if (!res) return <div>Loading...</div>;
 
+
   // Form submission logic
-  function onSubmit(data: PrinterFormValues) {
+  function onSubmit(values: z.infer<typeof printerFormSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
         </pre>
       ),
     });
@@ -134,7 +156,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Printer Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={mapPrinterTypeValue(field.value)}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a printer type" />
@@ -158,7 +180,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
               <FormControl>
                 <Input
                   placeholder="1.1.1.1"
-                  value={field && (field.value !== undefined && field.value !== null) ? field.value.toString() : ''}
+                  defaultValue={field && (field.value !== undefined && field.value !== null) ? field.value.toString() : ''}
                 />
               </FormControl>
               <FormDescription>
@@ -177,7 +199,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
               <FormControl>
                 <Input
                   placeholder="Enter API key"
-                  value={field && (field.value !== undefined && field.value !== null) ? field.value.toString() : ''}
+                  defaultValue={field && (field.value !== undefined && field.value !== null) ? field.value.toString() : ''}
                 />
               </FormControl>
               <FormDescription>
@@ -197,7 +219,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  value={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
+                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
                   onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
                 />
               </FormControl>
@@ -219,7 +241,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  value={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
+                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
                   onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
                 />
               </FormControl>
@@ -241,7 +263,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  value={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
+                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
                   onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
                 />
               </FormControl>
@@ -263,7 +285,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  value={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
+                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
                   onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
                 />
               </FormControl>
@@ -285,7 +307,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
                 <Input
                   type="number"
                   placeholder="0"
-                  value={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
+                  defaultValue={field && field.value !== undefined && field.value !== null ? field.value.toString() : ''}
                   onChange={e => field.onChange(e.target.value ? Number(e.target.value) : null)}
                 />
               </FormControl>
@@ -296,14 +318,13 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="location"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Location</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={mapPrinterLocationValue(field.value)}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a location" />

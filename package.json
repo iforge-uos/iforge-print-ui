@@ -2,7 +2,7 @@
   "name": "iforge-print-ui",
   "version": "0.1.6",
   "description": "A Next.js UI for the iForge Print Systems 2.0",
-  "license" : "GPL-3.0",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/iforge-uos/iforge-print-ui"
