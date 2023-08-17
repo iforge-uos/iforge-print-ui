@@ -1,8 +1,10 @@
 "use client"
 
+import Link from "next/link"
 import { ColumnDef } from "@tanstack/react-table"
-import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -98,7 +100,11 @@ export const columns: ColumnDef<Printer>[] = [
               Copy printer ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Printer Details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/printers/${encodeURIComponent(printer.id)}`}>
+                View Printer Details
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

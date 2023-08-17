@@ -1,9 +1,6 @@
-import { PrinterTable } from './components/printerTable'
-
+import { PrinterTable } from "./components/printerTable"
 
 export default function PrintersPage() {
-
-
   return (
     <>
       <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -14,9 +11,8 @@ export default function PrintersPage() {
         </div>
       </section>
       <div className="container mx-auto py-10">
-      <PrinterTable />
+        <PrinterTable />
       </div>
     </>
   )
 }
-
