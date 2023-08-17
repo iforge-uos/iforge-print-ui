@@ -103,7 +103,7 @@ export default function ProfilePage() {
   return (
     <>
     <div className="flex">
-      <div className="min-h-screen">
+      <div className="min-h-screen hidden md:flex">
         <Sidebar />
       </div>
 
