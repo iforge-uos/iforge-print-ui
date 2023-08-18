@@ -30,7 +30,7 @@ const api = axios.create({
 function createAxiosResponseInterceptor() {
   return api.interceptors.response.use(
     (response) => response,
-    (error) => {
+    async (error) => {
       if (error.response.status !== 401) {
         return Promise.reject(error)
       }
@@ -40,26 +40,21 @@ function createAxiosResponseInterceptor() {
         baseURL: siteConfig.api.url,
       })
 
-      return refreshApi
-        .post(
-          siteConfig.api.refresh_endpoint,
-          {},
-          { headers: { Authorization: "Bearer " + refreshToken } }
-        )
-        .then((response) => {
-          const newAccessToken = response.data.payload.data.access_token
-          Cookies.set("access_token", newAccessToken, { sameSite: "strict" })
-          error.response.config.headers["Authorization"] =
-            "Bearer " + newAccessToken
-          return api.request(error.response.config)
-        })
-        .catch((error2) => {
-          // TODO LOGOUT
-          //Cookies.remove("access_token")
-          //Cookies.remove("refresh_token")
-          //Cookies.remove("user")
-          return Promise.reject(error2)
-        })
+      try {
+        const response = await refreshApi
+          .post(
+            siteConfig.api.refresh_endpoint,
+            {},
+            {headers: {Authorization: "Bearer " + refreshToken}}
+          )
+        const newAccessToken = response.data.payload.data.access_token
+        Cookies.set("access_token", newAccessToken, {sameSite: "strict"})
+        error.response.config.headers["Authorization"] =
+          "Bearer " + newAccessToken
+        return await api.request(error.response.config)
+      } catch (error2) {
+        return await Promise.reject(error2)
+      }
     }
   )
 }
@@ -110,5 +105,17 @@ api.interceptors.response.use(
   }
 )
 
-export const fetcher = (url: string) =>
+export const getData = (url: string) =>
   api.get(url).then((res) => parseResponse(res.data))
+
+
+export const postData = (url: string, data: any) =>
+  api.post(url, data).then((res) => parseResponse(res.data))
+
+export const putData = (url: string, data: any) =>
+  api.put(url, data).then((res) => parseResponse(res.data))
+
+export const deleteData = (url: string) =>
+  api.delete(url).then((res) => parseResponse(res.data))
+
+

@@ -3,7 +3,7 @@
 import { AlertCircle } from "lucide-react"
 import useSWR from "swr"
 
-import { fetcher } from "@/lib/api"
+import { getData } from "@/lib/api"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -11,7 +11,7 @@ import { columns, User } from "./columns"
 import { DataTable } from "./data-table"
 
 export function UserTable() {
-  const { data, error } = useSWR("/users/view/all", fetcher)
+  const { data, error } = useSWR("/users/view/all", getData)
 
   if (error)
     return (

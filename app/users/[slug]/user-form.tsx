@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import useSWR from "swr"
 import * as z from "zod"
 
-import { fetcher } from "@/lib/api"
+import {getData, putData} from "@/lib/api"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
+import {filterByKeys} from "@/lib/utils";
+import {useFetchOnce} from "@/lib/wtfisthisfile";
 
 const userFormSchema = z.object({
   email: z.string().email(),
@@ -42,7 +44,27 @@ type UserFormProps = {
   slug: number
 }
 
-const defaultValues: Partial<UserFormValues> = {}
+const defaultValues: Partial<UserFormValues> = {
+  is_rep: false,
+  score_editable: true,
+  completed_count: 0,
+  failed_count: 0,
+  rejected_count: 0,
+  slice_completed_count: 0,
+  short_name: "",
+  slice_failed_count: 0,
+  slice_rejected_count: 0,
+  user_score: 0,
+  email: "",
+  name: "",
+  uid: "",
+}
+
+type ToastOptions = {
+  title: string;
+  description: string;
+};
+
 
 const UserForm: React.FC<UserFormProps> = ({ slug }) => {
   const { toast } = useToast()
@@ -52,12 +74,24 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
     mode: "onChange",
   })
 
+
+  async function delayedToast(delayTime : number, toastOptions: ToastOptions) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        toast(toastOptions);
+        resolve(true);
+      }, delayTime);
+    });
+  }
+
+
+
   // Data fetching using SWR
   const {
     data: res,
     error,
     isValidating,
-  } = useSWR(`/users/view/${slug}`, fetcher, {
+  } = useSWR(`/users/view/${slug}`, getData, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,
@@ -75,18 +109,42 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
   // Return conditions based on fetch state
   if (error) return <div>Error loading data</div>
   if (!res) return <div>Loading...</div>
-  console.log(res.data)
 
   // Form submission logic
-  function onSubmit(values: z.infer<typeof userFormSchema>) {
+  async function onSubmit(values: z.infer<typeof userFormSchema>) {
+    const allowedKeys = Object.keys(userFormSchema.shape)
+    const filteredValues = filterByKeys(values, allowedKeys)
     toast({
       title: "You submitted the following values:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+          <code className="text-white">{JSON.stringify(filteredValues, null, 2)}</code>
         </pre>
       ),
     })
+
+
+    try {
+      const response: { status: string } = await putData(`/users/update/${slug}`, filteredValues);
+
+      if (response.status === "success") {
+        await delayedToast(2000, {
+          title: "User updated successfully",
+          description: "You can now view the user in the list.",
+        });
+      } else {
+        await delayedToast(2000, {
+          title: "Error updating user",
+          description: "Please try again later.",
+        });
+      }
+    } catch (error) {
+      await delayedToast(2000, {
+        title: "Error updating user",
+        description: "Please try again later.",
+      });
+    }
+
   }
 
   return (
@@ -148,7 +206,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
               <FormControl>
                 <Input
                   placeholder="Sam"
-                  value={field.value || ""}
+                  defaultValue={field.value || ""}
                   onChange={field.onChange}
                 />
               </FormControl>
@@ -183,9 +241,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
               <Checkbox
                 id="is_rep"
                 checked={field.value}
-                onChange={(e) =>
-                  field.onChange((e.target as HTMLInputElement).checked)
-                }
+                onCheckedChange={field.onChange as () => void}
               />
               <label
                 htmlFor="is_rep"
@@ -206,9 +262,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
               <Checkbox
                 id="score_editable"
                 checked={field.value}
-                onChange={(e) =>
-                  field.onChange((e.target as HTMLInputElement).checked)
-                }
+                onCheckedChange={field.onChange as () => void}
               />
               <label
                 htmlFor="score_editable"
@@ -241,6 +295,74 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
         <FormField
           control={form.control}
           name="failed_count"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Failed Count</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="0" {...field} />
+              </FormControl>
+              <FormDescription>
+                Enter the number of tasks failed by the user.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="slice_completed_count"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Failed Count</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="0" {...field} />
+              </FormControl>
+              <FormDescription>
+                Enter the number of tasks failed by the user.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="slice_failed_count"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Failed Count</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="0" {...field} />
+              </FormControl>
+              <FormDescription>
+                Enter the number of tasks failed by the user.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="slice_rejected_count"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Failed Count</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="0" {...field} />
+              </FormControl>
+              <FormDescription>
+                Enter the number of tasks failed by the user.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="rejected_count"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Failed Count</FormLabel>

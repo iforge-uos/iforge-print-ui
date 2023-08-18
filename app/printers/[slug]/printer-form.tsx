@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form"
 import useSWR from "swr"
 import * as z from "zod"
 
+import { filterByKeys } from "@/lib/utils"
 import { PrinterLocation, PrinterType } from "@/types/api/printer"
-import { fetcher } from "@/lib/api"
+import { getData, putData } from "@/lib/api"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -26,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useToast } from "@/components/ui/use-toast"
+import userForm from "@/app/users/[slug]/user-form";
 
 const PrinterLocationZod = z.enum([
   PrinterLocation.heartspace,
@@ -122,7 +124,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
     data: res,
     error,
     isValidating,
-  } = useSWR(`/printers/view/${slug}`, fetcher, {
+  } = useSWR(`/printers/view/${slug}`, getData, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,
@@ -142,15 +144,42 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
   if (!res) return <div>Loading...</div>
 
   // Form submission logic
-  function onSubmit(values: z.infer<typeof printerFormSchema>) {
+  async function onSubmit(values: z.infer<typeof printerFormSchema>) {
+    const allowedKeys = Object.keys(printerFormSchema.shape)
+    const filteredValues = filterByKeys(values, allowedKeys)
+    const { id, ...valuesWithoutId } = filteredValues;
+
     toast({
       title: "You submitted the following values:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+          <code className="text-white">{JSON.stringify(valuesWithoutId, null, 2)}</code>
         </pre>
       ),
     })
+
+
+    try {
+      const response = await putData(`/printers/update/${slug}`, valuesWithoutId)
+      if (response.status === "success") {
+        toast({
+          title: "Printer updated successfully",
+          description: "You can now view the printer in the list.",
+        })
+      }
+      else {
+        toast({
+          title: "Error updating printer",
+          description: "Please try again later.",
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error updating printer",
+        description: "Please try again later.",
+      })
+    }
+
   }
 
   return (
