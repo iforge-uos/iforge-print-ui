@@ -1,6 +1,6 @@
 import PrinterForm from "@/app/printers/[slug]/printer-form"
 import { Separator }from "@/components/ui/separator"
-import { SidebarNav } from "../components/sidebar-nav"
+import { SidebarNav } from "@/app/printers/components/sidebar-nav"
 
 
 function isInteger(str: string): boolean {
@@ -19,14 +19,15 @@ export default function ManagePrinter({
   return (
     <div className="container">
 
-      <div className="space-y-2">
-        <div className="text-2xl font-semibold">Printer overview</div>
-        <p className="text-sm text-muted-foreground pb-2">
-          This is where you can find all the information about a printer.
+      <div className="">
+        <div className="text-2xl font-semibold">Printer settings</div>
+        <p className="text-sm text-muted-foreground">
+          This is where you can change the printer settings.
         </p>
       </div>
       <Separator />
       <div className="py-5">
+        <PrinterForm slug={parseInt(params.slug, 10)} />
       </div>
     </div>
   )
