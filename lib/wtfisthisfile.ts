@@ -23,7 +23,7 @@ export const useFetchOnce = <T>(url: string) => {
       }
     };
 
-    fetchData();
+    fetchData().then(r => r);
   }, [url]);
 
   return { data, isLoading, error };
