@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export type Prints = {
-  queue_number: 1
+  queue_number: number
   name: string
   email: string
   gcode_filename: string
@@ -38,6 +38,7 @@ export const columns: ColumnDef<Prints>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="w-32"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -56,40 +57,43 @@ export const columns: ColumnDef<Prints>[] = [
     header: "Email",
   },
 
-  {
-    accessorKey: "gcode_filename",
-    header: "Gcode Filename",
-  },
+  // {
+  //   accessorKey: "gcode_filename",
+  //   header: "Gcode Filename",
+  // },
   {
     accessorKey: "print_time",
-    header: "Print Time",
+    header: "Print Time (h/m)",
     cell: ({ row }) => {
       const printTime = row.original.print_time
       let colorClass = ""
       let bgColorClass = ""
       if (printTime < 2) {
         colorClass = "text-green-600"
-        bgColorClass = "bg-green-100"
+        bgColorClass = "bg-green-500"
       } else if (printTime >= 2 && printTime <= 6) {
         colorClass = "text-orange-500"
-        bgColorClass = "bg-orange-100"
+        bgColorClass = "bg-orange-500"
       } else {
         colorClass = "text-red-500"
-        bgColorClass = "bg-red-100"
+        bgColorClass = "bg-red-500"
       }
 
       return (
-        <div className={`rounded-md p-1.5 ${bgColorClass}`}>
-          <div className={colorClass}>{printTime}</div>
+        // <div className={`rounded-md p-1.5 ${bgColorClass}`}>
+        //   <div className={colorClass}>{printTime}</div>
+        // </div>
+        <div className="flex items-center">
+          <div className={`h-3 w-3 rounded-full ${bgColorClass} mr-2`}></div> {printTime}
         </div>
       )
     },
   },
 
-  {
-    accessorKey: "filament_weight",
-    header: "Filament(g)",
-  },
+  // {
+  //   accessorKey: "filament_weight",
+  //   header: "Filament(g)",
+  // },
   {
     accessorKey: "project_type",
     header: "Project type",
@@ -127,22 +131,22 @@ export const columns: ColumnDef<Prints>[] = [
     accessorKey: "printer",
     header: "Printer",
   },
-  {
-    accessorKey: "printed_colour",
-    header: "Printed colour",
-  },
+  // {
+  //   accessorKey: "printed_colour",
+  //   header: "Printed colour",
+  // },
   {
     accessorKey: "eta",
-    header: "ETA",
+    header: "ETA (m)",
   },
-  {
-    accessorKey: "notes",
-    header: "Notes",
-  },
-  {
-    accessorKey: "id",
-    header: "Unique ID",
-  },
+  // {
+  //   accessorKey: "notes",
+  //   header: "Notes",
+  // },
+  // {
+  //   accessorKey: "id",
+  //   header: "Unique ID",
+  // },
 
   {
     id: "actions",

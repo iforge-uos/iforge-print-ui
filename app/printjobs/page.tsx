@@ -23,7 +23,7 @@ async function getData(): Promise<Prints[]> {
       id: "11-yg3YMsVFnXpc",
     },
     {
-      queue_number: 1,
+      queue_number: 2,
       name: "TC",
       email: "TC@sheffield.ac.uk",
       gcode_filename: "asdasdjansdnjkad.gcode",
@@ -41,7 +41,7 @@ async function getData(): Promise<Prints[]> {
       id: "11-yg3YMsVFnXpc",
     },
     {
-      queue_number: 1,
+      queue_number: 3,
       name: "TC",
       email: "TC@sheffield.ac.uk",
       gcode_filename: "asdasdjansdnjkad.gcode",
@@ -59,7 +59,7 @@ async function getData(): Promise<Prints[]> {
       id: "11-yg3YMsVFnXpc",
     },
     {
-      queue_number: 1,
+      queue_number: 4,
       name: "TC",
       email: "TC@sheffield.ac.uk",
       gcode_filename: "asdasdjansdnjkad.gcode",
