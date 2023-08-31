@@ -1,26 +1,18 @@
-
+'use client'
 import { SidebarNav } from "../components/sidebar-nav"
 import { Separator }from "@/components/ui/separator"
 import Link from 'next/link';
-import { useNavigation } from 'next/navigation';
 
-const navigation = useNavigation();
 
-  const sidebarNavItems = [
-    {
-      title: "Overview",
-      href: "",
-    },
-    {
-      title: "Settings",
-      href: `${navigation.query.slug}/settings`,
-        },
-    {
-      title: "Notifications",
-      href: "notifications",
-    },
 
-  ]
+
+// import { useRouter } from 'next/router'
+// const router = useRouter()
+
+
+import { usePathname } from "next/navigation";
+
+
 
 
   
@@ -29,6 +21,26 @@ const navigation = useNavigation();
   }
   
   export default function SettingsLayout({ children }: SettingsLayoutProps) {
+    const pathname = usePathname();
+
+    // const router = useRouter();
+
+    const sidebarNavItems = [
+      {
+        title: "Overview",
+        href: `${pathname}/overview`,      
+      },
+      {
+        title: "Settings",
+        href: `${pathname}/settings`,
+          },
+      {
+        title: "Notifications",
+        href: `${pathname}/notifications`,
+      },
+  
+    ]
+    
     return (
       <>
         <div className="hidden space-y-6 p-10 pb-16 md:block">
