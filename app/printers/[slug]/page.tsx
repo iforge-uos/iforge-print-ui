@@ -27,6 +27,7 @@ export default function ManagePrinter({
       </div>
       <Separator />
       <div className="py-5">
+        POOPOOPPOP
       </div>
     </div>
   )

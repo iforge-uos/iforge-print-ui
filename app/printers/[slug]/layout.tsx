@@ -3,7 +3,7 @@ import { SidebarNav } from "../components/sidebar-nav"
 import { Separator }from "@/components/ui/separator"
 import Link from 'next/link';
 
-
+import { useParams } from "next/navigation";
 
 
 // import { useRouter } from 'next/router'
@@ -13,8 +13,6 @@ import Link from 'next/link';
 import { usePathname } from "next/navigation";
 
 
-
-
   
   interface SettingsLayoutProps {
     children: React.ReactNode
@@ -22,21 +20,22 @@ import { usePathname } from "next/navigation";
   
   export default function SettingsLayout({ children }: SettingsLayoutProps) {
     const pathname = usePathname();
+    const slug = (pathname.split('/').pop())
 
     // const router = useRouter();
 
     const sidebarNavItems = [
       {
         title: "Overview",
-        href: `${pathname}/overview`,      
+        href: `/printers/${slug}/overview`,      
       },
       {
         title: "Settings",
-        href: `${pathname}/settings`,
+        href: `/printers/${slug}/settings`,
           },
       {
         title: "Notifications",
-        href: `${pathname}/notifications`,
+        href: `/printers/${slug}/notifications`,
       },
   
     ]
