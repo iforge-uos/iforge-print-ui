@@ -65,7 +65,7 @@ export function SiteHeader({ items }: MainNavProps) {
         {/* mobile menu */}
         <div
           className={`fixed right-0 top-0 h-screen w-[65%] bg-[#ecf0f3] p-10 duration-300 ease-in-out dark:bg-neutral-700 sm:hidden ${
-            menuOpen ? "right-0 p-10" : "right-[65%] p-10"
+            menuOpen ? "right-0 p-10" : "right-[-65%] p-10 "
           }`}
         >
           <div className="flex w-full items-center justify-end gap-3">
