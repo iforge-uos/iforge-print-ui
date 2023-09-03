@@ -47,30 +47,30 @@ export const columns: ColumnDef<Printer>[] = [
     accessorKey: "printer_type",
     header: "Printer Type",
   },
-  {
-    accessorKey: "ip",
-    header: "IP Address",
-  },
-  {
-    accessorKey: "api_key",
-    header: "API Key",
-  },
-  {
-    accessorKey: "total_filament_used",
-    header: "Total Filament Used (g)",
-  },
-  {
-    accessorKey: "total_time_printed",
-    header: "Total Time Printed (h)",
-  },
-  {
-    accessorKey: "completed_prints",
-    header: "Completed Prints",
-  },
-  {
-    accessorKey: "failed_prints",
-    header: "Failed Prints",
-  },
+  // {
+  //   accessorKey: "ip",
+  //   header: "IP Address",
+  // },
+  // {
+  //   accessorKey: "api_key",
+  //   header: "API Key",
+  // },
+  // {
+  //   accessorKey: "total_filament_used",
+  //   header: "Total Filament Used (g)",
+  // },
+  // {
+  //   accessorKey: "total_time_printed",
+  //   header: "Total Time Printed (h)",
+  // },
+  // {
+  //   accessorKey: "completed_prints",
+  //   header: "Completed Prints",
+  // },
+  // {
+  //   accessorKey: "failed_prints",
+  //   header: "Failed Prints",
+  // },
   {
     accessorKey: "days_on_time",
     header: "Days On Time",

@@ -8,9 +8,12 @@ export default function PrintersPage() {
           <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
             Printers
           </h1>
+          <p className="">
+            Expand on a printer's details by clicking the dropdown
+          </p>
         </div>
       </section>
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-5">
         <PrinterTable />
       </div>
     </>

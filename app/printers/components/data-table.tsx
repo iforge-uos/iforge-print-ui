@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter names..."
+          placeholder="Search for a printer..."
           value={table.getColumn("printer_name")?.getFilterValue() as string}
           onChange={(event) =>
             table.getColumn("printer_name")?.setFilterValue(event.target.value)
@@ -77,9 +77,9 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border max-w-5xl">
         <Table>
-          <TableHeader>
+          <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
