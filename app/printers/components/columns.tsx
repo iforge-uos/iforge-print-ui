@@ -71,13 +71,61 @@ export const columns: ColumnDef<Printer>[] = [
   //   accessorKey: "failed_prints",
   //   header: "Failed Prints",
   // },
+
   {
     accessorKey: "days_on_time",
     header: "Days On Time",
+    cell: ({ row }) => {
+      const onTime = row.original.days_on_time
+      let colorClass = ""
+      let bgColorClass = ""
+      if (onTime > 2) {
+        colorClass = "text-green-600"
+        bgColorClass = "bg-green-500"
+      } else if (onTime >= 2 && onTime >= 0) {
+        colorClass = "text-orange-500"
+        bgColorClass = "bg-orange-500"
+      } else  {
+        colorClass = "text-red-500"
+        bgColorClass = "bg-red-500"
+      }
+
+      return (
+        // <div className={`rounded-md p-1.5 ${bgColorClass}`}>
+        //   <div className={colorClass}>{printTime}</div>
+        // </div>
+        <div className="flex items-center">
+          <div className={`h-3 w-3 rounded-full ${bgColorClass} mr-2`}></div> {onTime}
+        </div>
+      )
+    },
   },
+
+
   {
     accessorKey: "location",
     header: "Location",
+    cell: ({ row }) => {
+      const location = row.original.location
+      let colorClass = ""
+      let bgColorClass = ""
+      if (location == "heartspace") {
+        colorClass = "text-green-600"
+        bgColorClass = "bg-green-500"
+      } else if (location == "diamond") {
+        colorClass = "text-blue-500"
+        bgColorClass = "bg-blue-500"
+      } 
+
+      return (
+        // <div className={`rounded-md p-1.5 ${bgColorClass}`}>
+        //   <div className={colorClass}>{printTime}</div>
+        // </div>
+        <div className="flex items-center">
+          <div className={`h-3 w-3 rounded-full ${bgColorClass} mr-2`}></div> {location}
+        </div>
+      )
+    },
   },
   {
     id: "actions",
