@@ -99,7 +99,9 @@ export default function ProfilePage() {
   }, [cookies])
 
   return (
-    <>
+    <div className="flex">
+      <div className="min-h-screen hidden md:flex">
+        <Sidebar />
       <div className="flex">
         <div className="min-h-screen">
           <Sidebar />
@@ -193,6 +195,7 @@ export default function ProfilePage() {
           </div>
         </section>
       </div>
-    </>
+    </div>
+  </div>
   )
 }
