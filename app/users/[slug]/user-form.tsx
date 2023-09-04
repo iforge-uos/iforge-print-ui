@@ -91,7 +91,7 @@ const UserForm: React.FC<UserFormProps> = ({ slug }) => {
     data: res,
     error,
     isValidating,
-  } = useSWR(`/users/view/${slug}`, getData, {
+  } = useSWR(`/users/user/${slug}`, getData, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,

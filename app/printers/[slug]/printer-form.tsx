@@ -124,7 +124,7 @@ const PrinterForm: React.FC<PrinterFormProps> = ({ slug }) => {
     data: res,
     error,
     isValidating,
-  } = useSWR(`/printers/view/${slug}`, getData, {
+  } = useSWR(`/printers/printer/${slug}`, getData, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,

@@ -57,7 +57,7 @@ export const columns: ColumnDef<Prints>[] = [
   },
 
   {
-    accessorKey: "gcode_filename",
+    accessorKey: "gcode_slug",
     header: "Gcode Filename",
   },
   {
@@ -87,7 +87,7 @@ export const columns: ColumnDef<Prints>[] = [
   },
 
   {
-    accessorKey: "filament_weight",
+    accessorKey: "filament_usage",
     header: "Filament(g)",
   },
   {
@@ -128,7 +128,7 @@ export const columns: ColumnDef<Prints>[] = [
     header: "Printer",
   },
   {
-    accessorKey: "printed_colour",
+    accessorKey: "colour",
     header: "Printed colour",
   },
   {
@@ -136,7 +136,7 @@ export const columns: ColumnDef<Prints>[] = [
     header: "ETA",
   },
   {
-    accessorKey: "notes",
+    accessorKey: "upload_notes",
     header: "Notes",
   },
   {
@@ -165,7 +165,7 @@ export const columns: ColumnDef<Prints>[] = [
               Copy print ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Printer Details</DropdownMenuItem>
+            <DropdownMenuItem>View Job Details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

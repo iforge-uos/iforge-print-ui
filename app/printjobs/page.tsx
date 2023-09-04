@@ -1,85 +1,6 @@
-import { columns, Prints } from "@/app/printjobs/components/columns"
-import { DataTable } from "@/app/printjobs/components/data-table"
+import { PrintJobTable } from '@/app/printjobs/components/printJobTable'
 
-async function getData(): Promise<Prints[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      queue_number: 1,
-      name: "CT",
-      email: "CT@sheffield.ac.uk",
-      gcode_filename: "asdasdjansdnjkad.gcode",
-      print_time: 1.45,
-      filament_weight: 25.02,
-      project_type: "testing do not print",
-      date_added: "08/06/23",
-      rep_check: false,
-      status: "under review",
-      printer_type: "Prusa",
-      printer: "",
-      printed_colour: "",
-      eta: 10,
-      notes: "dont review print",
-      id: "11-yg3YMsVFnXpc",
-    },
-    {
-      queue_number: 1,
-      name: "TC",
-      email: "TC@sheffield.ac.uk",
-      gcode_filename: "asdasdjansdnjkad.gcode",
-      print_time: 3.65,
-      filament_weight: 25.02,
-      project_type: "testing do not print",
-      date_added: "08/06/23",
-      rep_check: true,
-      status: "under review",
-      printer_type: "Prusa",
-      printer: "",
-      printed_colour: "",
-      eta: 10,
-      notes: "dont review print",
-      id: "11-yg3YMsVFnXpc",
-    },
-    {
-      queue_number: 1,
-      name: "TC",
-      email: "TC@sheffield.ac.uk",
-      gcode_filename: "asdasdjansdnjkad.gcode",
-      print_time: 1.55,
-      filament_weight: 25.02,
-      project_type: "testing do not print",
-      date_added: "08/06/23",
-      rep_check: false,
-      status: "under review",
-      printer_type: "Prusa",
-      printer: "",
-      printed_colour: "",
-      eta: 10,
-      notes: "dont review print",
-      id: "11-yg3YMsVFnXpc",
-    },
-    {
-      queue_number: 1,
-      name: "TC",
-      email: "TC@sheffield.ac.uk",
-      gcode_filename: "asdasdjansdnjkad.gcode",
-      print_time: 9.02,
-      filament_weight: 25.02,
-      project_type: "testing do not print",
-      date_added: "08/06/23",
-      rep_check: false,
-      status: "under review",
-      printer_type: "Prusa",
-      printer: "",
-      printed_colour: "",
-      eta: 10,
-      notes: "dont review print",
-      id: "11-yg3YMsVFnXpc",
-    },
-  ]
-}
 export default async function JobsPage() {
-  const data = await getData()
 
   return (
     <>
@@ -93,7 +14,7 @@ export default async function JobsPage() {
           </p>
         </div>
         <div>
-          <DataTable columns={columns} data={data} />
+          <PrintJobTable />
         </div>
       </section>
     </>

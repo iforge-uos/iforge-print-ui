@@ -11,7 +11,7 @@ import { columns, User } from "./columns"
 import { DataTable } from "./data-table"
 
 export function UserTable() {
-  const { data, error } = useSWR("/users/view/all", getData)
+  const { data, error } = useSWR("/users/user", getData)
 
   if (error)
     return (

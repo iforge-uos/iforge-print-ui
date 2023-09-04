@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "iForge Print Service",
+  name: "iForge Printing",
   description: "Web Application to support iForge 3DPrinting",
   mainNav: [
     {

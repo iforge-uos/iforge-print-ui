@@ -7,11 +7,11 @@ import { getData } from "@/lib/api"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Skeleton } from "@/components/ui/skeleton"
 
-import { columns, Printer } from "./columns"
+import { columns, Prints } from "./columns"
 import { DataTable } from "./data-table"
 
-export function PrinterTable() {
-  const { data, error } = useSWR("/printers/printer", getData)
+export function PrintJobTable() {
+  const { data, error } = useSWR("/prints/job", getData)
 
   if (error)
     return (
@@ -19,7 +19,7 @@ export function PrinterTable() {
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>
-          Error fetching printers. Please try again later.
+          An Error has occurred. Please try again later.
         </AlertDescription>
       </Alert>
     )
@@ -27,7 +27,9 @@ export function PrinterTable() {
   // Parse data into a list of users type
   if (!data) return <Skeleton className="h-[400px] flex-1" />
 
-  const printers: Printer[] = data.data.printers as Printer[]
+  const jobs: Prints[] = data.data.print_jobs as Prints[]
 
-  return <DataTable columns={columns} data={printers} />
+  console.log(jobs)
+
+  return <DataTable columns={columns} data={jobs} />
 }
